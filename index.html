@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Elegant Dark Website</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap');
+
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #121212;
+      color: #ddd;
+      font-family: 'Poppins', sans-serif;
+      scroll-behavior: smooth;
+      min-height: 100vh;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(18, 18, 18, 0.85);
+      backdrop-filter: blur(10px);
+      padding: 15px 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 999;
+      transition: background 0.3s ease;
+    }
+
+    header.scrolled {
+      background: #1f1f1f;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.7);
+    }
+
+    header h1 {
+      font-weight: 600;
+      font-size: 24px;
+      letter-spacing: 2px;
+      color: #3a8ee6;
+      cursor: default;
+      user-select: none;
+    }
+
+    nav a {
+      color: #ccc;
+      text-decoration: none;
+      margin-left: 30px;
+      font-weight: 300;
+      font-size: 1rem;
+      padding: 5px 0;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: 0;
+      left: 0;
+      background-color: #3a8ee6;
+      transition: width 0.3s;
+    }
+
+    nav a:hover, nav a.active {
+      color: #3a8ee6;
+    }
+
+    nav a:hover::after, nav a.active::after {
+      width: 100%;
+    }
+
+    /* Hero */
+    .hero {
+      height: 100vh;
+      background: linear-gradient(135deg, #222222 0%, #1a1a1a 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 20px;
+      animation: fadeIn 1.5s ease forwards;
+    }
+
+    .hero h2 {
+      font-size: 3.8rem;
+      font-weight: 600;
+      color: #3a8ee6;
+      margin-bottom: 20px;
+      letter-spacing: 4px;
+      opacity: 0;
+      animation: fadeInText 1s ease forwards;
+      animation-delay: 0.5s;
+    }
+
+    .hero p {
+      font-weight: 300;
+      font-size: 1.25rem;
+      max-width: 600px;
+      color: #bbb;
+      opacity: 0;
+      animation: fadeInText 1s ease forwards;
+      animation-delay: 1s;
+    }
+
+    @keyframes fadeInText {
+      to {opacity: 1;}
+    }
+
+    /* Services */
+    section#services {
+      padding: 70px 50px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    section#services h3 {
+      font-weight: 600;
+      font-size: 2.8rem;
+      color: #3a8ee6;
+      text-align: center;
+      margin-bottom: 50px;
+      letter-spacing: 2px;
+    }
+
+    .service-list {
+      display: flex;
+      justify-content: center;
+      gap: 50px;
+      flex-wrap: wrap;
+    }
+
+    .service {
+      background: #1e1e1e;
+      border-radius: 15px;
+      width: 280px;
+      padding: 30px 20px;
+      text-align: center;
+      box-shadow: 0 8px 20px rgba(58, 142, 230, 0.2);
+      transition: transform 0.3s ease;
+      cursor: default;
+    }
+
+    .service:hover {
+      transform: translateY(-15px);
+      box-shadow: 0 15px 40px rgba(58, 142, 230, 0.35);
+    }
+
+    .service-icon {
+      width: 70px;
+      height: 70px;
+      background: #3a8ee6;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto 25px auto;
+      color: #121212;
+      font-size: 36px;
+    }
+
+    .service h4 {
+      font-weight: 600;
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+      color: #fff;
+    }
+
+    .service p {
+      font-weight: 300;
+      font-size: 1rem;
+      color: #aaa;
+      line-height: 1.5;
+    }
+
+    /* Gallery */
+    section#gallery {
+      padding: 70px 50px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    section#gallery h3 {
+      font-weight: 600;
+      font-size: 2.8rem;
+      color: #3a8ee6;
+      text-align: center;
+      margin-bottom: 50px;
+      letter-spacing: 2px;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+
+    .gallery-item {
+      border-radius: 15px;
+      overflow: hidden;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+      transition: transform 0.3s ease;
+      position: relative;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      display: block;
+      filter: brightness(0.85);
+      transition: transform 0.4s ease, filter 0.4s ease;
+      border-radius: 15px;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.1);
+      filter: brightness(1);
+    }
+
+    /* Contact */
+    section#contact {
+      padding: 70px 50px;
+      max-width: 600px;
+      margin: 0 auto 70px auto;
+    }
+
+    section#contact h3 {
+      font-weight: 600;
+      font-size: 2.8rem;
+      color: #3a8ee6;
+      text-align: center;
+      margin-bottom: 40px;
+      letter-spacing: 2px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    form input, form textarea {
+      background: #222;
+      border: none;
+      padding: 15px 20px;
+      color: #ddd;
+      font-size: 1rem;
+      border-radius: 12px;
+      resize: none;
+      transition: background 0.3s ease;
+    }
+
+    form input::placeholder,
+    form textarea::placeholder {
+      color: #666;
+      font-style: italic;
+    }
+
+    form input:focus, form textarea:focus {
+      background: #333;
+      outline: none;
+    }
+
+    form button {
+      background: #3a8ee6;
+      color: #121212;
+      border: none;
+      padding: 15px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(58, 142, 230, 0.5);
+      transition: background 0.3s ease;
+    }
+
+    form button:hover {
+      background: #276fcc;
+      box-shadow: 0 10px 30px rgba(39, 111, 204, 0.7);
+    }
+
+    footer {
+      background: #1a1a1a;
+      color: #555;
+      text-align: center;
+      padding: 20px 50px;
+      font-size: 0.9rem;
+      letter-spacing: 1.5px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      header {
+        padding: 15px 20px;
+      }
+
+      section#services, section#gallery, section#contact {
+        padding: 40px 20px;
+      }
+
+      nav a {
+        margin-left: 20px;
+        font-size: 0.9rem;
+      }
+
+      .service-list {
+        flex-direction: column;
+        gap: 35px;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header id="header">
+    <h1>ElegantCo</h1>
+    <nav>
+      <a href="#home" class="active">Home</a>
+      <a href="#services">Services</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero" id="home">
+    <h2>Experience Elegance in Every Pixel</h2>
+    <p>Delivering refined digital craftsmanship with passion and precision.</p>
+  </section>
+
+  <section id="services">
+    <h3>What We Offer</h3>
+    <div class="service-list">
+      <div class="service">
+        <div class="service-icon">⚡</div>
+        <h4>Lightning Fast</h4>
+        <p>Performance optimized to load instantly and keep users engaged.</p>
+      </div>
+      <div class="service">
+        <div class="service-icon">🔒</div>
+        <h4>Ironclad Security</h4>
+        <p>Protect your data and privacy with top-tier security measures.</p>
+      </div>
+      <div class="service">
+        <div class="service-icon">🌍</div>
+        <h4>Worldwide Reach</h4>
+        <p>Global scale with multilingual support and flawless accessibility.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="gallery">
+    <h3>Our Work</h3>
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <img src="https://source.unsplash.com/400x300/?dark,technology" alt="Work 1" />
+      </div>
+      <div class="gallery-item">
+        <img src="https://source.unsplash.com/400x300/?dark,design" alt="Work 2" />
+      </div>
+      <div class="gallery-item">
+        <img src="https://source.unsplash.com/400x300/?dark,code" alt="Work 3" />
+      </div>
+      <div class="gallery-item">
+        <img src="https://source.unsplash.com/400x300/?dark,app" alt="Work 4" />
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h3>Get in Touch</h3>
+    <form>
+      <input type="text" name="name" placeholder="Your Name" required />
+      <input type="email" name="email" placeholder="Your Email" required />
+      <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </section>
+
+  <footer>
+    &copy; 2025 ElegantCo. All rights reserved.
+  </footer>
+
+  <script>
+    // Highlight nav links on scroll
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('nav a');
+    const header = document.getElementById('header');
+
+    window.addEventListener('scroll', () => {
+      let scrollPos = window.scrollY + 100;
+
+      // Sticky header background change
+      if(scrollPos > 100) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+
+      sections.forEach((section) => {
+        if(scrollPos >= section.offsetTop && scrollPos < section.offsetTop + section.offsetHeight) {
+          navLinks.forEach(link => link.classList.remove('active'));
+          const id = section.getAttribute('id');
+          document.querySelector(`nav a[href="#${id}"]`).classList.add('active');
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
